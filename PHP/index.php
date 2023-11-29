@@ -19,5 +19,3 @@ $result = $conn->query($sql);
 
 // Cerrar la conexión
 $conn->close();
-
-?>
