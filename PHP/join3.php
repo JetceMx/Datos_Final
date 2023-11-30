@@ -1,23 +1,29 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "Trompudo1@";
-$dbname = "proyecto_final";
+<!DOCTYPE html>
+<html lang="es">
 
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <title>Sabinito Airport</title>
+</head>
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
-?>
+<body>
+    <?php
+    // Incluye el encabezado en todas las páginas que lo necesiten
+    include '../PHP/header.php';
+    include '../PHP/ConexionSE.php'
+    ?>
+
+    <br>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Aero</th>
-            <th scope="col">Ubi</th>
-            <th scope="col">cantidad de pilotos</th>
+            <th scope="col">Nombre de Piloto</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Aeropuerto</th>
         </tr>
     </thead>
     <?php
@@ -41,3 +47,7 @@ if ($conn->connect_error) {
     echo '</tbody>';
     ?>
 </table>
+
+</body>
+
+</html>

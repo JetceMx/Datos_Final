@@ -1,6 +1,6 @@
 <?php
 
-$servername = "base";
+$servername = "localhost";
 $username = "root";
 $password = "Trompudo1@";
 $dbname = "proyecto_final";
@@ -12,12 +12,3 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
-
-// Consulta SQL
-$sql = "SELECT idMiembro, nombreMiembro, sexoMiembro FROM miembros";
-$result = $conn->query($sql);
-
-// Cerrar la conexión
-$conn->close();
-
-?>
