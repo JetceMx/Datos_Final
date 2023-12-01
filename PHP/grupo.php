@@ -12,7 +12,7 @@
     <?php
     // Incluye el encabezado en todas las páginas que lo necesiten
     include '../PHP/header.php';
-    include '../PHP/ConexionSE.php'
+    include '../PHP/conexionBDK.php';
     ?>
 
     <br>
