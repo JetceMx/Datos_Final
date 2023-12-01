@@ -4,36 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../CSS/index.css">
+    <link rel="stylesheet" href="../../CSS/index.css">
     <title>Sabinito Airport</title>
 </head>
 
 <body>
     <?php
     // Incluye el encabezado en todas las páginas que lo necesiten
-    include '../PHP/header.php';
-    include '../PHP/conexionBDK.php'
-    ?>
+    include '../../PHP/header.php';
+    include '../../PHP/conexionBDK.php';
 
-    <br>
-
-    <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nombrePasajero = $_POST["nombrePasajero"];
         $rfc = $_POST["rfc"];
         $Telefono = $_POST["Telefono"];
         $cantMaletas = $_POST["cantMaletas"];
         $pesoTMaletas = $_POST["pesoTMaletas"];
-        $null = '';
 
         // Prevenir la inyección de SQL usando consultas preparadas
         $sql = "INSERT INTO Pasajero (idPasajero, nombrePasajero, rfc, Telefono, cantMaletas, pesoTMaletas) VALUES (null, '$nombrePasajero', '$rfc', '$Telefono', '$cantMaletas', '$pesoTMaletas')";
         $stmt = $conn->prepare($sql);
 
+        //! Guarda los datos, recordar descomentar al final
         /*if ($stmt->execute()) {
-            echo "Datos insertados correctamente.";
+            echo "<script language='JavaScript'>
+            alert('Los datos han sido guardados!');
+            </script>";
         } else {
-            echo "Error al insertar datos: " . $stmt->error;
+            // Error
+            echo "<script language='JavaScript'>
+            alert('Los datos NO han sido guardados.');
+            </script>";
         }*/
     }
     ?>
@@ -59,7 +60,7 @@
                 <input type="number" class="form-control" id="cantMaletas" name="cantMaletas" required>
             </div>
             <div class="form-group">
-                <label for="pesoTMaletas">Peso de las maletas</label>
+                <label for="pesoTMaletas">Peso de las maletas(kg)</label>
                 <input type="float" class="form-control" id="pesoTMaletas" name="pesoTMaletas" required>
             </div>
             <br>
@@ -78,20 +79,30 @@
                     <th scope="col">RFC</th>
                     <th scope="col">Telefono</th>
                     <th scope="col"># Maletas</th>
-                    <th scope="col">Peso Maletas</th>
+                    <th scope="col">Peso Maletas (kg)</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <?php
             echo '<tbody>';
             $sql = "SELECT * FROM pasajero";
             $result = $conn->query($sql);
-            // Mostrar datos
-            while ($row = $result->fetch_assoc()) {
-                echo '<tr>';
-                foreach ($row as $value) {
-                    echo '<td>' . $value . '</td>';
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo '<tr>';
+                    echo '<td>' . $row['idPasajero'] . '</td>';
+                    echo '<td>' . $row['nombrePasajero'] . '</td>';
+                    echo '<td>' . $row['rfc'] . '</td>';
+                    echo '<td>' . $row['Telefono'] . '</td>';
+                    echo '<td>' . $row['cantMaletas'] . '</td>';
+                    echo '<td>' . $row['pesoTMaletas'] . '</td>';
+                    echo "<td><a href='borrarPasajeros.php?id=" . $row['idPasajero'] . "'>Eliminar</a></td>";
+                    echo "<td><a href='editarPasajero.php?id=" . $row['idPasajero'] . "'>Editar</a></td>";
+                    echo '</tr>';
                 }
-                echo '</tr>';
+            } else {
+                echo '<tr>No hay registros!</tr>';
             }
 
             echo '</tbody>';
