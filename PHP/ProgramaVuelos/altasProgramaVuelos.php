@@ -11,8 +11,8 @@
 <body>
     <?php
     // Incluye el encabezado en todas las páginas que lo necesiten
-    include '../PHP/header.php';
-    include '../PHP/conexionBDK.php';
+    include '../../PHP/header.php';
+    include '../../PHP/conexionBDK.php';
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $folioVuelo = $_POST["folioVuelo"];
@@ -23,23 +23,31 @@
         $fechaDestinoVuelo = $_POST["fechaDestinoVuelo"];
         $horaOrigenVuelo = $_POST["horaOrigenVuelo"];
         $horaDestinoVuelo = $_POST["horaDestinoVuelo"];
+        $Avion_idAvion = $_POST["Avion_idAvion"];
+        $Piloto_idPiloto = $_POST["Piloto_idPiloto"];
+        $Piloto_Aeropuerto_idAeropuerto = $_POST["Piloto_Aeropuerto_idAeropuerto"];
+
 
         // Prevenir la inyección de SQL usando consultas preparadas
-        $sql = "INSERT INTO programavuelos (folioVuelo, origenVuelo, destinoVuelo, cantidadPasajerosVuelo, fechaOrigenVuelo, fechaDestinoVuelo, horaOrigenVuelo, horaDestinoVuelo) VALUES ('$folioVuelo', '$origenVuelo', '$destinoVuelo', '$cantidadPasajerosVuelo', '$fechaOrigenVuelo', '$fechaDestinoVuelo', '$horaOrigenVuelo', '$horaDestinoVuelo')";
+        $sql = "INSERT INTO programavuelos (folioVuelo, origenVuelo, destinoVuelo, cantidadPasajerosVuelo, fechaOrigenVuelo, fechaDestinoVuelo, horaOrigenVuelo, horaDestinoVuelo,Avion_idAvion,Piloto_idPiloto,Piloto_Aeropuerto_idAeropuerto) VALUES 
+                                            ('$folioVuelo', '$origenVuelo', '$destinoVuelo', '$cantidadPasajerosVuelo', '$fechaOrigenVuelo', '$fechaDestinoVuelo', '$horaOrigenVuelo', '$horaDestinoVuelo','$Avion_idAvion','$Piloto_idPiloto','$Piloto_Aeropuerto_idAeropuerto')";
         $stmt = $conn->prepare($sql);
 
         /*if ($stmt->execute()) {
-            // Éxito
-            echo "Registro agregado exitosamente";
+            echo "<script language='JavaScript'>
+            alert('Los datos han sido guardados!');
+            </script>";
         } else {
             // Error
-            echo "No se ha  registrado";
+            echo "<script language='JavaScript'>
+            alert('Los datos NO han sido guardados.');
+            </script>";
         }*/
     }
     ?>
 
     <div class="container mt-5">
-        <h2>Programa de Vuleos</h2>
+        <h2>Programa de Vuelos</h2>
         <form id="altaForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <!-- No se incluye el campo ID ya que es autoincremental -->
             <div class="form-group">
@@ -68,11 +76,62 @@
             </div>
             <div class="form-group">
                 <label for="horaOrigenVuelo">Hora del despegue</label>
-                <input type="text" class="form-control" id="horaOrigenVuelo" name="horaOrigenVuelo" required>
+                <input type="time" class="form-control" id="horaOrigenVuelo" name="horaOrigenVuelo" required>
             </div>
             <div class="form-group">
                 <label for="horaDestinoVuelo">Hora del aterrizaje</label>
-                <input type="text" class="form-control" id="horaDestinoVuelo" name="horaDestinoVuelo" required>
+                <input type="time" class="form-control" id="horaDestinoVuelo" name="horaDestinoVuelo" required>
+            </div>
+            <div class="form-group">
+                <label for="Avion_idAvion">ID del Avion</label>
+                <select class="form-control" id="Avion_idAvion" name="Avion_idAvion" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <?php
+                    include '../../PHP/conexionBDK.php';
+
+                    $sql = "SELECT idAvion FROM Avion";
+                    $result = mysqli_query($conn, $sql);
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value='" . $row['idAvion'] . "'>" . $row['idAvion'] . "</option>";
+                    }
+
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Piloto_idPiloto">ID del Piloto</label>
+                <select class="form-control" id="Piloto_idPiloto" name="Piloto_idPiloto" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <?php
+                    include '../../PHP/conexionBDK.php';
+
+                    $sql = "SELECT idPiloto FROM Piloto";
+                    $result = mysqli_query($conn, $sql);
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value='" . $row['idPiloto'] . "'>" . $row['idPiloto'] . "</option>";
+                    }
+
+                    ?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Piloto_Aeropuerto_idAeropuerto">ID del Aeropuerto</label>
+                <select class="form-control" id="Piloto_Aeropuerto_idAeropuerto" name="Piloto_Aeropuerto_idAeropuerto" required>
+                    <option value="" disabled selected>Seleccionar</option>
+                    <?php
+                    include '../../PHP/conexionBDK.php';
+
+                    $sql = "SELECT idAeropuerto FROM Aeropuerto";
+                    $result = mysqli_query($conn, $sql);
+
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value='" . $row['idAeropuerto'] . "'>" . $row['idAeropuerto'] . "</option>";
+                    }
+
+                    ?>
+                </select>
             </div>
             <br>
             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -93,6 +152,9 @@
                     <th scope="col">Fecha destino</th>
                     <th scope="col">Hora origen</th>
                     <th scope="col">Hora destino</th>
+                    <th scope="col">ID Avion</th>
+                    <th scope="col">ID Piloto</th>
+                    <th scope="col">ID Avion</th>
                 </tr>
             </thead>
             <?php
@@ -111,6 +173,11 @@
                     echo '<td>' . $row['fechaDestinoVuelo'] . '</td>';
                     echo '<td>' . $row['horaOrigenVuelo'] . '</td>';
                     echo '<td>' . $row['horaDestinoVuelo'] . '</td>';
+                    echo '<td>' . $row['Avion_idAvion'] . '</td>';
+                    echo '<td>' . $row['Piloto_idPiloto'] . '</td>';
+                    echo '<td>' . $row['Piloto_Aeropuerto_idAeropuerto'] . '</td>';
+                    echo "<td><a href='borrarProgramaVuelo.php?id=" . $row['folioVuelo'] . "'>Eliminar</a></td>";
+                    echo "<td><a href='editarProgramaVuelo.php?id=" . $row['folioVuelo'] . "'>Editar</a></td>";
                     echo '</tr>';
                 }
             } else {

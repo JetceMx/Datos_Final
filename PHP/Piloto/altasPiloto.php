@@ -23,12 +23,12 @@
         $Telefono_p = $_POST["Telefono_p"];
         $Nivel_p = $_POST["Nivel_p"];
 
-        // Prevenir la inyección de SQL usando consultas preparadas
+        // Prevenir la inyección de SQL usando consul   tas preparadas
         $sql = "INSERT INTO piloto (idPiloto, nombrePiloto, sexoPiloto, Aeropuerto_idAeropuerto,  rfc_p, Telefono_p, Nivel_p) VALUES ('$idPiloto', '$nombrePiloto', '$sexoPiloto', '$Aeropuerto_idAeropuerto','$rfc_p', '$Telefono_p', '$Nivel_p')";
         $stmt = $conn->prepare($sql);
 
         //! Guarda los datos, recordar descomentar al final
-        /*if ($stmt->execute()) {
+        if ($stmt->execute()) {
             echo "<script language='JavaScript'>
             alert('Los datos han sido guardados!');
             </script>";
@@ -37,7 +37,7 @@
             echo "<script language='JavaScript'>
             alert('Los datos NO han sido guardados.');
             </script>";
-        }*/
+        }
     }
     ?>
 
@@ -106,6 +106,7 @@
                     <th scope="col">RFC</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Nivel</th>
+                    <th scope="col">Acciones</th>
 
                 </tr>
             </thead>
@@ -124,6 +125,8 @@
                     echo '<td>' . $row['rfc_p'] . '</td>';
                     echo '<td>' . $row['Telefono_p'] . '</td>';
                     echo '<td>' . $row['Nivel_p'] . '</td>';
+                    echo "<td><a href='borrarPiloto.php?id=" . $row['idPiloto'] . "'>Eliminar</a></td>";
+                    echo "<td><a href='editarPiloto.php?id=" . $row['idPiloto'] . "'>Editar</a></td>";
                     echo '</tr>';
                 }
             } else {
