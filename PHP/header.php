@@ -15,7 +15,20 @@
     </header>
 
     <nav>
-        <a href="#inicio">Inicio</a>
+
+            <div class="dropdown-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Altas
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="Aeropuerto/altasAeropuerto.php">Alta de Aeropuerto</a></li>
+            <li><a class="dropdown-item" href="Pasajeros/altasPasajeros.php">Alta de Pasajero</a></li>
+            <li><a class="dropdown-item" href="Piloto/altasPiloto.php">Alta de Piloto</a></li>
+            <li><a class="dropdown-item" href="ProgramaVuelos/altasProgramaVuelos.php">Alta de Programa Vuelos</a></li>
+            <li><a class="dropdown-item" href="Vuelo/altasVuelo.php">Alta Vuelo</a></li>
+        </ul>
+        </div>
+
         <a href="#destinos">Destinos</a>
         <a href="#reservas">Reservas</a>
         <a href="#contacto">Contacto</a>
