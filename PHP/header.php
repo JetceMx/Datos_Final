@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <h1>Sabinito Airport</h1>
+        <h1>Sabinito Airlines</h1>
     </header>
 
     <nav>

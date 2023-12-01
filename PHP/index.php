@@ -1,21 +1,51 @@
-<?php
+<!DOCTYPE html>
+<html lang="es">
 
-$servername = "tu_servidor_mysql";
-$username = "tu_usuario_mysql";
-$password = "tu_contraseña_mysql";
-$dbname = "tu_base_de_datos";
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/index.css">
+    <title>Sabinito Airlines</title>
+</head>
 
-// Crear la conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+<body>
+    <?php
+    // Incluye el encabezado en todas las páginas que lo necesiten
+    include '../PHP/header.php';
+    
+    ?>
 
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+    <br>
+    <div class="container">
+    <div id="carouselExampleAutoplaying" class="carousel slide caruu" data-bs-ride="carousel">
+        <div class="carousel-inner">
+        <div class="carousel-item active">
+        <img src="../img/img1.png" class="d-block w-100 " alt="...">
+        </div>
+        <div class="carousel-item">
+        <img src="../img/img2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+        <img src="../img/img3.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+        <img src="../img/img4.png" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+    </div>
+    </div>
+    
+    
 
-// Consulta SQL
-$sql = "SELECT id, nombre, email FROM usuarios";
-$result = $conn->query($sql);
+</body>
 
-// Cerrar la conexión
-$conn->close();
+</html>
+
