@@ -29,7 +29,18 @@
         </ul>
         </div>
 
-        <a href="#destinos">Destinos</a>
+        <div class="dropdown-center">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Vistas
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="Vistas/miembros_Aeropuerto.php">Miembros</a></li>
+            <li><a class="dropdown-item" href="Vistas/vista_vuelo.php">Despegues</a></li>
+            <li><a class="dropdown-item" href="Vistas/vista_vueloAterrizaje.php">Aterrizajes</a></li>
+        </ul>
+        </div>
+
+        
         <a href="#reservas">Reservas</a>
         <a href="#contacto">Contacto</a>
     </nav>
